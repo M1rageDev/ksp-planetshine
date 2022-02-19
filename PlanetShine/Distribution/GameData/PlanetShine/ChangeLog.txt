@@ -1,7 +1,9 @@
 ﻿PlanetShine Change Log
 ---------------------------------------------------------
-v0.2.6.2 Mar 28, 2018
-- Added PluginData folder for settings and log storage.  This prevents MOdule Manager from recompiling cached data.
+v0.2.6.2 Oct 19, 2019
+- Recompiled for KSP 1.8
+- Fixed issue where magenta plane would be visible in midsection of player's craft
+- Temporarily disabled debug lines as they seem to be causing the aforementioned issue
 
 v0.2.6.1 Mar 28, 2018
 - Corrected Version number on Main toolbar window.  Updated to automatically display assembly version.
