@@ -27,7 +27,7 @@ namespace PlanetShine {
 		public static bool renderEnabled = true;
 
 		// This value is assigned from AssemblyInfo.cs
-		internal static string CurVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		internal static string curVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
 		// for debug only
 		private System.Diagnostics.Stopwatch performanceTimer = new System.Diagnostics.Stopwatch();
@@ -76,7 +76,7 @@ namespace PlanetShine {
 		public float lightIntensity;
 		public Color vacuumColor;
 
-		public int albedoLightsQuantity {
+		public int AlbedoLightsQuantity {
 			// Sepcial case for suns: we only want 1 albedo light to correctly handle the shadow.
 			get {
 				return bodyIsSun ? 1 : config.albedoLightsQuantity;
@@ -103,13 +103,13 @@ namespace PlanetShine {
 		}
 
 		private void CreateDebugLines() {
-			debugLineLightDirection = Utils.CreateDebugLine(Color.white, Color.green);
-			debugLineSunDirection = Utils.CreateDebugLine(Color.white, Color.yellow);
-			debugLineBodyDirection = Utils.CreateDebugLine(Color.white, Color.red);
+			debugLineLightDirection = Utils.Utils.CreateDebugLine(Color.white, Color.green);
+			debugLineSunDirection = Utils.Utils.CreateDebugLine(Color.white, Color.yellow);
+			debugLineBodyDirection = Utils.Utils.CreateDebugLine(Color.white, Color.red);
 
 			debugLineLights = new LineRenderer[Config.maxAlbedoLightsQuantity];
 			for (var i = 0; i < Config.maxAlbedoLightsQuantity; i++) {
-				debugLineLights[i] = Utils.CreateDebugLine(Color.white, Color.blue);
+				debugLineLights[i] = Utils.Utils.CreateDebugLine(Color.white, Color.blue);
 			}
 		}
 
@@ -166,7 +166,7 @@ namespace PlanetShine {
 
 			int i = 0;
 			foreach (GameObject albedoLight in albedoLights) {
-				if (albedoLightsQuantity > 1) {
+				if (AlbedoLightsQuantity > 1) {
 					debugLineLights[i].enabled = config.debug;
 					debugLineLights[i].SetPosition(0, FlightGlobals.ActiveVessel.transform.position
 													- albedoLight.GetComponent<Light>().transform.forward * 10000);
@@ -247,12 +247,12 @@ namespace PlanetShine {
 			visibleLightVesselDirection = (FlightGlobals.ActiveVessel.transform.position - visibleLightPositionAverage).normalized;
 
 			// combining all previous albedo light modificators to set the final intensity
-			lightIntensity = config.baseAlbedoIntensity / albedoLightsQuantity;
+			lightIntensity = config.baseAlbedoIntensity / AlbedoLightsQuantity;
 			lightIntensity *= visibleLightRatio * boostedVisibleLightAngleEffect * atmosphereReflectionEffect
 				* lightDistanceEffect * bodyIntensity;
 
 			// boosting light intensity when there are multiple rendering lights spread with a wide angle
-			if (albedoLightsQuantity > 1)
+			if (AlbedoLightsQuantity > 1)
 				lightIntensity *= 1f + (areaSpreadAngleRatio * areaSpreadAngleRatio * 0.5f);
 
 			int i = 0;
@@ -264,18 +264,18 @@ namespace PlanetShine {
 				albedoLight.GetComponent<Light>().intensity = lightIntensity;
 				albedoLight.GetComponent<Light>().transform.forward = visibleLightVesselDirection;
 				// Spread the lights, but only if there are more than one
-				if (albedoLightsQuantity > 1) {
+				if (AlbedoLightsQuantity > 1) {
 					albedoLight.GetComponent<Light>().transform.forward = Quaternion.AngleAxis(areaSpreadAngle,
 																				Vector3.Cross(bodyVesselDirection,
 																							   bodySunDirection).normalized)
 						* albedoLight.GetComponent<Light>().transform.forward;
-					albedoLight.GetComponent<Light>().transform.forward = Quaternion.AngleAxis(i * (360f / albedoLightsQuantity),
+					albedoLight.GetComponent<Light>().transform.forward = Quaternion.AngleAxis(i * (360f / AlbedoLightsQuantity),
 																				visibleLightVesselDirection)
 						* albedoLight.GetComponent<Light>().transform.forward;
 				}
 
 				albedoLight.GetComponent<Light>().color = bodyColor;
-				if (renderEnabled && (i < albedoLightsQuantity) && !MapView.MapIsEnabled) {
+				if (renderEnabled && (i < AlbedoLightsQuantity) && !MapView.MapIsEnabled) {
 					albedoLight.GetComponent<Light>().enabled = true;
 				} else
 					albedoLight.GetComponent<Light>().enabled = false;

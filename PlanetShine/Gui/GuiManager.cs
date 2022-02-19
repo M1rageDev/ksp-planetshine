@@ -7,35 +7,32 @@
 * This code is licensed under the Apache License Version 2.0. See the LICENSE.txt
 * file for more information.
 */
-using System.Collections.Generic;
-using System.Collections;
-using System;
-using System.IO;
-using UnityEngine;
+
 using KSP.UI.Screens;
+using PlanetShine.Utils;
+using UnityEngine;
 
-
-namespace PlanetShine
+namespace PlanetShine.Gui
 {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class GuiManager : MonoBehaviour
     {
-        public bool isConfigDisplayed
+        public bool IsConfigDisplayed
         {
             get
             {
-                return _isConfigDisplayed;
+                return isConfigDisplayed;
             }
 
             set
             {
-                if (_isConfigDisplayed == value)
+                if (isConfigDisplayed == value)
                     return;
-                _isConfigDisplayed = value;
+                isConfigDisplayed = value;
                 UpdateButtonIcons();
             }
         }
-        private bool _isConfigDisplayed = false;
+        private bool isConfigDisplayed = false;
 
         private Config config = Config.Instance;
         private PlanetShine planetShine;
@@ -67,11 +64,11 @@ namespace PlanetShine
                 () =>
                 {
                     planetShine = PlanetShine.Instance;
-                    isConfigDisplayed = true;
+                    IsConfigDisplayed = true;
                 },
                 () =>
                 {
-                    isConfigDisplayed = false;
+                    IsConfigDisplayed = false;
                 },
                 null,
                 null,
@@ -80,7 +77,7 @@ namespace PlanetShine
                 ApplicationLauncher.AppScenes.FLIGHT,
                 GameDatabase.Instance.GetTexture("PlanetShine/Icons/ps_toolbar", false)
                 );
-            if (isConfigDisplayed)
+            if (IsConfigDisplayed)
                 stockButton.SetTrue();
         }
 
@@ -90,29 +87,29 @@ namespace PlanetShine
                 return;
             if (blizzyButton != null)
                 return;
-            blizzyButton = ToolbarManager.Instance.add("PlanetShine", "Gui");
+            blizzyButton = ToolbarManager.Instance.Add("PlanetShine", "Gui");
             blizzyButton.TexturePath = "PlanetShine/Icons/ps_disabled";
             blizzyButton.Visibility = new GameScenesVisibility(GameScenes.FLIGHT);
             blizzyButton.ToolTip = "PlanetShine Settings";
             blizzyButton.OnClick += (e) =>
             {
                 planetShine = PlanetShine.Instance;
-                isConfigDisplayed = !isConfigDisplayed;
+                IsConfigDisplayed = !IsConfigDisplayed;
             };
         }
 
         private void UpdateButtonIcons() {
             if (blizzyButton != null)
-                blizzyButton.TexturePath = isConfigDisplayed ? "PlanetShine/Icons/ps_enabled" : "PlanetShine/Icons/ps_disabled";
+                blizzyButton.TexturePath = IsConfigDisplayed ? "PlanetShine/Icons/ps_enabled" : "PlanetShine/Icons/ps_disabled";
             if (stockButton != null)
-                if (_isConfigDisplayed)
+                if (isConfigDisplayed)
                     stockButton.SetTrue();
                 else
                     stockButton.SetFalse();       
         }
 
         private void OnGUI(){
-            if (isConfigDisplayed) {
+            if (IsConfigDisplayed) {
                 guiRenderer.Render(planetShine);
             }
         }

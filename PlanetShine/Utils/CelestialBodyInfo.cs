@@ -8,10 +8,9 @@
 * file for more information.
 */
 
-using System;
 using UnityEngine;
 
-namespace PlanetShine
+namespace PlanetShine.Utils
 {
     public class CelestialBodyInfo
     {

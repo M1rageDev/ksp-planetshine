@@ -8,13 +8,10 @@
 * file for more information.
 */
 
-using System.Collections.Generic;
-using System.Collections;
 using System;
-using System.IO;
 using UnityEngine;
 
-namespace PlanetShine {
+namespace PlanetShine.Utils {
 	public class Utils {
 		public static LineRenderer CreateDebugLine(Color startColor, Color endColor) {
 			GameObject obj = new GameObject("Line");
@@ -85,12 +82,12 @@ namespace PlanetShine {
 
 
 	public class DisplaySettingOption<T> {
-		public string label { get; private set; }
-		public T value { get; private set; }
+		public string Label { get; private set; }
+		public T Value { get; private set; }
 
 		public DisplaySettingOption(string label, T value) {
-			this.label = label;
-			this.value = value;
+			this.Label = label;
+			this.Value = value;
 		}
 	}
 }

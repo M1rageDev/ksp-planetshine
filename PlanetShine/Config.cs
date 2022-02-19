@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using System.IO;
-using KSP.IO;
+using PlanetShine.Utils;
 using UnityEngine;
 
 namespace PlanetShine
@@ -22,19 +22,12 @@ namespace PlanetShine
 
   public sealed class Config
   {
-    private static readonly Config instance = new Config();
-    public static string SettingsPath = "GameData/PlanetShine/Plugins/PluginData";
-    public static string SettingsFile = SettingsPath + "/" + "Settings.cfg";
+    public static string settingsPath = "GameData/PlanetShine/Plugins/PluginData";
+    public static string settingsFile = settingsPath + "/" + "Settings.cfg";
 
     private Config() { }
 
-    public static Config Instance
-    {
-      get
-      {
-        return instance;
-      }
-    }
+    public static Config Instance { get; } = new Config();
 
     public bool blizzyToolbarInstalled = false;
     public bool kopernicusInstalled = false;
@@ -42,7 +35,7 @@ namespace PlanetShine
     public static string[] qualityLabels = { "Low", "Medium", "High" };
     public static int maxAlbedoLightsQuantity = 4;
 
-    public int quality { get; private set; }
+    public int Quality { get; private set; }
     public bool useVertex = false;
     public int albedoLightsQuantity = 4;
     public float baseAlbedoIntensity = 0.24f;
@@ -60,9 +53,9 @@ namespace PlanetShine
 
     public bool stockToolbarEnabled = true;
 
-    public void setQuality(int selectedQuality)
+    public void SetQuality(int selectedQuality)
     {
-      quality = selectedQuality;
+      Quality = selectedQuality;
       switch (selectedQuality)
       {
         case 0:
@@ -107,7 +100,7 @@ namespace PlanetShine
   public class ConfigManager : MonoBehaviour
   {
     public static ConfigManager Instance { get; private set; }
-    private Config config = Config.Instance;
+    private readonly Config config = Config.Instance;
     private ConfigNode configFile;
     private ConfigNode configFileNode;
 
@@ -130,7 +123,7 @@ namespace PlanetShine
 
     public void LoadSettings()
     {
-      configFile = ConfigNode.Load(KSPUtil.ApplicationRootPath + Config.SettingsFile);
+      configFile = ConfigNode.Load(KSPUtil.ApplicationRootPath + Config.settingsFile);
       configFileNode = configFile.GetNode("PlanetShine");
 
       if (bool.Parse(configFileNode.GetValue("useAreaLight")))
@@ -149,7 +142,7 @@ namespace PlanetShine
       config.albedoRange = float.Parse(configFileNode.GetValue("albedoRange"));
       config.useVertex = bool.Parse(configFileNode.GetValue("useVertex"));
       config.updateFrequency = int.Parse(configFileNode.GetValue("updateFrequency"));
-      config.setQuality(int.Parse(configFileNode.GetValue("quality")));
+      config.SetQuality(int.Parse(configFileNode.GetValue("quality")));
       if (configFileNode.HasValue("stockToolbarEnabled"))
         config.stockToolbarEnabled = bool.Parse(configFileNode.GetValue("stockToolbarEnabled"));
 
@@ -167,32 +160,27 @@ namespace PlanetShine
       try
       {
         CelestialBody body = FlightGlobals.Bodies.Find(n => n.name == bodySettings.GetValue("name"));
-        if (FlightGlobals.Bodies.Contains(body))
-        {
-          Color color = ConfigNode.ParseColor(bodySettings.GetValue("color"))
-              * float.Parse(bodySettings.GetValue("intensity"));
-          color.r = (color.r / 255f);
-          color.g = (color.g / 255f);
-          color.b = (color.b / 255f);
-          color.a = 1;
-          if (!config.celestialBodyInfos.ContainsKey(body))
-            config.celestialBodyInfos.Add(body, new CelestialBodyInfo
-                                          (
-                                           color,
-                                           float.Parse(bodySettings.GetValue("intensity")),
-                                           float.Parse(bodySettings.GetValue("atmosphereAmbient")),
-                                           float.Parse(bodySettings.GetValue("groundAmbientOverride")),
-                                           (bodySettings.HasValue("isSun") ? bool.Parse(bodySettings.GetValue("isSun")) : false)
-                                           ));
-        }
+        if (!FlightGlobals.Bodies.Contains(body)) return;
+        Color color = ConfigNode.ParseColor(bodySettings.GetValue("color"))
+                      * float.Parse(bodySettings.GetValue("intensity"));
+        color.r /= 255f;
+        color.g /= 255f;
+        color.b /= 255f;
+        color.a = 1;
+        if (config.celestialBodyInfos.ContainsKey(body)) return;
+        config.celestialBodyInfos.Add(body, new CelestialBodyInfo
+        (
+          color,
+          float.Parse(bodySettings.GetValue("intensity")),
+          float.Parse(bodySettings.GetValue("atmosphereAmbient")),
+          float.Parse(bodySettings.GetValue("groundAmbientOverride")),
+          (bodySettings.HasValue("isSun") && bool.Parse(bodySettings.GetValue("isSun")))
+        ));
       }
       catch (Exception e)
       {
-        Debug.LogError(String.Format(
-            "[PlanetShine] An exception occured reading CelestialBodyColor node:\n{0}\nThe exception was:\n{1}",
-            bodySettings,
-            e
-        ));
+        Debug.LogError(
+          $"[PlanetShine] An exception occured reading CelestialBodyColor node:\n{bodySettings}\nThe exception was:\n{e}");
       }
     }
 
@@ -210,11 +198,11 @@ namespace PlanetShine
       configFileNode.SetValue("albedoRange", config.albedoRange.ToString());
       configFileNode.SetValue("useVertex", config.useVertex ? "True" : "False");
       configFileNode.SetValue("updatefrequency", config.updateFrequency.ToString());
-      configFileNode.SetValue("quality", config.quality.ToString());
+      configFileNode.SetValue("quality", config.Quality.ToString());
       configFileNode.SetValue("stockToolbarEnabled", config.stockToolbarEnabled ? "True" : "False");
-      if (!Directory.Exists(Config.SettingsPath))
-        Directory.CreateDirectory(Config.SettingsPath);
-      configFile.Save(KSPUtil.ApplicationRootPath + Config.SettingsFile);
+      if (!Directory.Exists(Config.settingsPath))
+        Directory.CreateDirectory(Config.settingsPath);
+      configFile.Save(KSPUtil.ApplicationRootPath + Config.settingsFile);
     }
 
   }

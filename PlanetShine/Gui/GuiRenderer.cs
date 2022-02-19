@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using PlanetShine.Utils;
 using UnityEngine;
 
-namespace PlanetShine
+namespace PlanetShine.Gui
 {
   class GuiRenderer
   {
@@ -39,7 +38,7 @@ namespace PlanetShine
 
     public bool Render(PlanetShine planetShine)
     {
-      configWindowPosition = GUILayout.Window(143751300, configWindowPosition, OnConfigWindow, "PlanetShine v" + PlanetShine.CurVersion + " - Beta", windowStyle);
+      configWindowPosition = GUILayout.Window(143751300, configWindowPosition, OnConfigWindow, "PlanetShine v" + PlanetShine.curVersion + " - Beta", windowStyle);
       if (config.debug && PlanetShine.Instance != null)
       {
         debugWindowPosition = GUILayout.Window(143751301, debugWindowPosition, OnDebugWindow, "--- PLANETSHINE DEBUG ---", windowStyle);
@@ -52,13 +51,13 @@ namespace PlanetShine
       return true;
     }
 
-    private void OnConfigWindow(int windowID)
+    private void OnConfigWindow(int windowId)
     {
       originalBackgroundColor = GUI.backgroundColor;
       originalTextColor = GUI.contentColor;
 
       if (GUI.Button(new Rect(configWindowPosition.width - 22, 3, 19, 19), "x"))
-        guiManager.isConfigDisplayed = false;
+        guiManager.IsConfigDisplayed = false;
 
       GUILayout.Space(15);
 
@@ -112,11 +111,11 @@ namespace PlanetShine
       GUILayout.Label("Quality preset", GUILayout.Width(settingsLabelWidth));
       for (int i = 0; i < 3; ++i)
       {
-        GUI.backgroundColor = config.quality == i ? tabSelectedColor : tabUnselectedColor;
-        GUI.contentColor = config.quality == i ? Color.white : new Color(0.6f, 0.6f, 0.6f);
+        GUI.backgroundColor = config.Quality == i ? tabSelectedColor : tabUnselectedColor;
+        GUI.contentColor = config.Quality == i ? Color.white : new Color(0.6f, 0.6f, 0.6f);
         if (GUILayout.Button(Config.qualityLabels[i]))
         {
-          config.setQuality(i);
+          config.SetQuality(i);
         }
       }
       GUI.backgroundColor = originalBackgroundColor;
@@ -255,7 +254,7 @@ namespace PlanetShine
       GUI.contentColor = originalTextColor;
     }
 
-    private void OnDebugWindow(int windowID)
+    private void OnDebugWindow(int windowId)
     {
       GUILayout.BeginVertical();
 
@@ -311,15 +310,15 @@ namespace PlanetShine
       GUILayout.Label(label, GUILayout.Width(settingsLabelWidth));
       foreach (DisplaySettingOption<T> choice in choices)
       {
-        GUI.backgroundColor = EqualityComparer<T>.Default.Equals(target, choice.value)
+        GUI.backgroundColor = EqualityComparer<T>.Default.Equals(target, choice.Value)
             ? tabSelectedColor : tabUnselectedColor;
-        GUI.contentColor = EqualityComparer<T>.Default.Equals(target, choice.value)
+        GUI.contentColor = EqualityComparer<T>.Default.Equals(target, choice.Value)
             ? Color.white : new Color(0.6f, 0.6f, 0.6f);
-        if (GUILayout.Button(choice.label)
-            && !EqualityComparer<T>.Default.Equals(target, choice.value))
+        if (GUILayout.Button(choice.Label)
+            && !EqualityComparer<T>.Default.Equals(target, choice.Value))
         {
-          config.setQuality(3);
-          target = choice.value;
+          config.SetQuality(3);
+          target = choice.Value;
         }
       }
       GUI.backgroundColor = originalBackgroundColor;
