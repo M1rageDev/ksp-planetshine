@@ -1,10 +1,13 @@
 ﻿PlanetShine Change Log
 ---------------------------------------------------------
-v0.2.6.3 Feb 19, 2022
+v0.2.6.4 Feb 19, 2022
 - Recompiled for KSP 1.12.3
 - Papa_Joe resumes maintenance.  Many thanks to Prestja for keeping this mod alive in my absense!
 - Refactored some code for newer C# styles and .NET 4.8
 - Revised build pipeline to match PapaJoe's multi mod build pipeline.
+
+v0.2.6.3 ???, 2020
+- Recompiled for KSP 1.9
 
 v0.2.6.2 Oct 19, 2019
 - Recompiled for KSP 1.8
