@@ -1,36 +1,33 @@
 {
-    "NAME":"PlanetShine",
-    "URL":"https://github.com/PapaJoesSoup/ksp-planetshine/blob/master/PlanetShine/Distribution/GameData/PlanetShine/Plugins/PlanetShine.version",
-    "DOWNLOAD":"https://github.com/PapaJoesSoup/ksp-planetshine/releases",
+    "NAME": "PlanetShine",
+    "URL": "https://github.com/prestja/ksp-planetshine/raw/master/PlanetShine/Distribution/GameData/PlanetShine/Plugins/PlanetShine.version",
+    "DOWNLOAD": "https://github.com/prestja/ksp-planetshine/releases",
     "GITHUB":
     {
-        "USERNAME":"PapaJoesSoup",
-        "REPOSITORY":"ksp-planetshine",
-        "ALLOW_PRE_RELEASE":false
+        "USERNAME": "prestja",
+        "REPOSITORY": "ksp-planetshine",
+        "ALLOW_PRE_RELEASE": false
     },
     "VERSION":
     {
-        "MAJOR":0,
-        "MINOR":2,
-        "PATCH":6,
-        "BUILD":1
+        "MAJOR": 0,
+        "MINOR": 2,
+        "PATCH": 6,
+        "BUILD": 3
     },
     "KSP_VERSION":
     {
-        "MAJOR":1,
-        "MINOR":4,
-        "PATCH":1
+        "MAJOR": 1,
+        "MINOR": 8
     },
     "KSP_VERSION_MIN":
     {
-        "MAJOR":1,
-        "MINOR":4,
-        "PATCH":0
+        "MAJOR": 1,
+        "MINOR": 8
     },
     "KSP_VERSION_MAX":
     {
-        "MAJOR":1,
-        "MINOR":4,
-        "PATCH":999
+        "MAJOR": 1,
+        "MINOR": 10
     }
 } 
