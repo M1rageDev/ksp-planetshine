@@ -1,5 +1,9 @@
 ﻿PlanetShine Change Log
 ---------------------------------------------------------
+v0.2.6.5 Feb 20, 2022
+- Corrected pink square by changing an incorrect shader path for "Particles/additive.  now "Legacy Shaders/Partilces/Additive"
+  Unity changed the location of the shader in the object hierarchy as of Unity 2017.
+
 v0.2.6.4 Feb 19, 2022
 - Recompiled for KSP 1.12.3
 - Papa_Joe resumes maintenance.  Many thanks to Prestja for keeping this mod alive in my absense!

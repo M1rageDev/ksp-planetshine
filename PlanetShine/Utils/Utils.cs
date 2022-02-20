@@ -16,7 +16,7 @@ namespace PlanetShine.Utils {
 		public static LineRenderer CreateDebugLine(Color startColor, Color endColor) {
 			GameObject obj = new GameObject("Line");
 			LineRenderer line = obj.AddComponent<LineRenderer>();
-			line.material = new Material(Shader.Find("Particles/Additive"));
+			line.material = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
 			line.positionCount = 2;
 			line.endColor = endColor;
 			line.startColor = startColor;
