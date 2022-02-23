@@ -1,12 +1,18 @@
 ﻿PlanetShine Change Log
 ---------------------------------------------------------
+v0.2.6.6 Feb 20, 2022
+- Add support for Kerbals EVA experiencing planetshine
+- Fix broken Blizzy Toolbar support. File was refactored accidentally.
+
+
 v0.2.6.5 Feb 20, 2022
 - Corrected pink square by changing an incorrect shader path for "Particles/additive.  now "Legacy Shaders/Particles/Additive"
   Unity changed the location of the shader in the object hierarchy as of Unity 2017.
+  https://answers.unity.com/questions/1592525/shader-particles-additive-missing.html 
 
 v0.2.6.4 Feb 19, 2022
 - Recompiled for KSP 1.12.3
-- Papa_Joe resumes maintenance.  Many thanks to Prestja for keeping this mod alive in my absense!
+- Papa_Joe resumes maintenance.  Many thanks to Prestja for keeping this mod alive in my absence!
 - Refactored some code for newer C# styles and .NET 4.8
 - Revised build pipeline to match PapaJoe's multi mod build pipeline.
 

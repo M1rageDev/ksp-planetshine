@@ -87,7 +87,7 @@ namespace PlanetShine.Gui
                 return;
             if (blizzyButton != null)
                 return;
-            blizzyButton = ToolbarManager.Instance.Add("PlanetShine", "Gui");
+            blizzyButton = ToolbarManager.Instance.add("PlanetShine", "Gui");
             blizzyButton.TexturePath = "PlanetShine/Icons/ps_disabled";
             blizzyButton.Visibility = new GameScenesVisibility(GameScenes.FLIGHT);
             blizzyButton.ToolTip = "PlanetShine Settings";

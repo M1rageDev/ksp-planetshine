@@ -121,7 +121,7 @@ namespace PlanetShine {
 				albedoLights[i] = new GameObject();
 				Light light = albedoLights[i].AddComponent<Light>();
 				light.type = LightType.Directional;
-				light.cullingMask = (1 << 0);
+				light.cullingMask = (1 << 0) | (1 << 16) | (1 << 17);
 				light.shadows = LightShadows.Soft;
 				light.shadowStrength = 1.0f;
 				albedoLights[i].AddComponent<MeshRenderer>();
@@ -182,7 +182,7 @@ namespace PlanetShine {
 
 		}
 
-		// thise is where all the calculation and rendering of albedo lights occur
+		// this is where all the calculation and rendering of albedo lights occur
 		private void UpdateAlbedoLights() {
 
 			// reminder: "body" means celestial body, which is the currently orbiting planet/moon/sun
@@ -310,7 +310,7 @@ namespace PlanetShine {
 
 			UpdateCelestialBody();
 			UpdateAlbedoLights();
-			//UpdateDebugLines();
+			UpdateDebugLines();
 
 			if (config.debug) {
 				performanceTimer.Stop();
