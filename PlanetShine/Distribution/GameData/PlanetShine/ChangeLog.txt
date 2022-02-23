@@ -1,9 +1,10 @@
 ﻿PlanetShine Change Log
 ---------------------------------------------------------
-v0.2.6.6 Feb 20, 2022
+v0.2.6.6 Feb 22, 2022
 - Add support for Kerbals EVA experiencing planetshine
 - Fix broken Blizzy Toolbar support. File was refactored accidentally.
-
+- Correct white line visible.
+- Thanks for the support! https://forum.kerbalspaceprogram.com/index.php?/topic/173138-112x-planetshine-0265-feb-20-2022/&do=findComment&comment=4095301
 
 v0.2.6.5 Feb 20, 2022
 - Corrected pink square by changing an incorrect shader path for "Particles/additive.  now "Legacy Shaders/Particles/Additive"
