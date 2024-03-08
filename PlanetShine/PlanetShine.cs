@@ -121,7 +121,7 @@ namespace PlanetShine {
 				albedoLights[i] = new GameObject();
 				Light light = albedoLights[i].AddComponent<Light>();
 				light.type = LightType.Directional;
-				light.cullingMask = (1 << 0) | (1 << 16) | (1 << 17);
+				light.cullingMask = (1 << 0) | (1 << 17);
 				light.shadows = LightShadows.Soft;
 				light.shadowStrength = 1.0f;
 				albedoLights[i].AddComponent<MeshRenderer>();
